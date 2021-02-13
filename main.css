@@ -1,4 +1,7 @@
 * {
+	margin: 0px;
+	padding: 0px;
+
 	background-color: #2a2a2a;
 
 	color: #f0f0f0;
@@ -10,28 +13,48 @@
 }
 
 .site {
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-}
+	display: flex;
+	flex-direction:column;
+	
+	height: 100vh;
+	
+	align-items: center;
+	justify-content: center;
 
-.title {
-	font-size: 200px;
+	font-size: 10vh;
 }
 
 .media {
-	padding: 30px;
+	padding: 1.5vh;
 	display: inline-block;
+	
+	flex-direction: row;
 
-	font-size: 30px;
+	font-size: 4vh;
 	font-weight: bold;
 
 	text-decoration: none;
+	
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color:transparent;
 }
 
 .media:hover {
-	transform:scale(1.1);
+	transform: scale(1.1);
+}
+
+#steam {
+	background-color: #66c0f4;
+	background-image: linear-gradient(135deg, #66c0f4 15%, #2A2A72 100%);
+}
+
+#reddit {
+	background-color: #FF5700;
+	background-image: linear-gradient(135deg, #FF5700 0%, #ec9f05 75%);
+}
+
+#discord {
+	background-color: #7289DA ;
+	background-image: linear-gradient(135deg, #7f53ac 0%, #7289DA  75%);
 }
