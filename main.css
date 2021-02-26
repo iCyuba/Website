@@ -1,47 +1,61 @@
 * {
-	margin: 0px;
-	padding: 0px;
-
 	background-color: #121212;
-
 	color: #f0f0f0;
-	text-align: center;
 
+	margin: 0;
+
+	text-align: center;
 	font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
 
 	transition: all .2s;
 }
 
-.site {
+@media (prefers-color-scheme: light) {
+	* {
+		background-color: #f0f0f0;
+		color: #121212;
+	}
+}
+
+#site-container {
 	display: flex;
-	flex-direction:column;
+	flex-direction: column;
 	
 	height: 100vh;
 	
 	align-items: center;
 	justify-content: center;
-
-	font-size: 10vh;
 }
 
-.media {
-	padding: 1.5vh;
-	display: inline-block;
-	
+#media-container {
+	display: flex;
 	flex-direction: row;
 
-	font-size: 4vh;
-	font-weight: bold;
-
-	text-decoration: none;
+	flex-wrap: wrap;
 	
-	-webkit-background-clip: text;
-	background-clip: text;
-	-webkit-text-fill-color:transparent;
+	align-items: center;
+	justify-content: center;
 }
 
 .media:hover {
 	transform: scale(1.1);
+}
+
+#title {
+	font-size: 30vmin;
+}
+
+.media {
+	padding: 3vmin;
+
+	font-size: 6vmin;
+	font-weight: bold;
+
+	text-decoration: none;
+	
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 #steam {
@@ -57,11 +71,4 @@
 #discord {
 	background-color: #7289DA ;
 	background-image: linear-gradient(135deg, #7f53ac 0%, #7289DA  75%);
-}
-
-@media (prefers-color-scheme: light) {
-	* {
-		background-color: #f0f0f0;
-		color: #121212;
-	}
 }
