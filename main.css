@@ -1,74 +1,83 @@
-* {
-	background-color: #121212;
-	color: #f0f0f0;
+@import url('https://fonts.googleapis.com/css2?family=Dosis&family=Raleway&display=swap');
 
-	margin: 0;
+html {
+  background-color: #121212;
+  color: #f0f0f0;
 
-	text-align: center;
-	font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+  margin: 0;
 
-	transition: all .2s;
+  text-align: center;
+  font-family: "Dosis", sans-serif;
+
+  transition: all 0.2s;
 }
 
 @media (prefers-color-scheme: light) {
-	* {
-		background-color: #f0f0f0;
-		color: #121212;
-	}
+  html {
+    background-color: #f0f0f0;
+    color: #121212;
+  }
 }
 
-#site-container {
-	display: flex;
-	flex-direction: column;
-	
-	height: 100vh;
-	
-	align-items: center;
-	justify-content: center;
+body {
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  align-items: center;
+  justify-content: center;
 }
 
-#media-container {
-	display: flex;
-	flex-direction: row;
-
-	flex-wrap: wrap;
-	
-	align-items: center;
-	justify-content: center;
-}
-
-.media:hover {
-	transform: scale(1.1);
-}
-
-#title {
-	font-size: 30vmin;
+.title {
+  font: 30vmin "Raleway", sans-serif;
 }
 
 .media {
-	padding: 3vmin;
+  display: flex;
+  flex-direction: row;
 
-	font-size: 6vmin;
-	font-weight: bold;
+  flex-wrap: wrap;
 
-	text-decoration: none;
-	
-	background-clip: text;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+  align-items: center;
+  justify-content: center;
+}
+
+.media a {
+  padding: 3vmin;
+
+  font-size: 6vmin;
+  font-weight: bold;
+
+  text-decoration: none;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  transition: all 0.2s;
+}
+
+.media a:hover {
+  transform: scale(1.1);
 }
 
 #steam {
-	background-color: #66c0f4;
-	background-image: linear-gradient(135deg, #66c0f4 15%, #2A2A72 100%);
+  background-color: #66c0f4;
+  background-image: linear-gradient(135deg, #66c0f4 15%, #2a2a72 100%);
 }
 
 #reddit {
-	background-color: #FF5700;
-	background-image: linear-gradient(135deg, #FF5700 0%, #ec9f05 75%);
+  background-color: #ff5700;
+  background-image: linear-gradient(135deg, #ff5700 0%, #ec9f05 75%);
 }
 
 #discord {
-	background-color: #7289DA ;
-	background-image: linear-gradient(135deg, #7f53ac 0%, #7289DA  75%);
+  background-color: #7289da;
+  background-image: linear-gradient(135deg, #7f53ac 0%, #7289da 75%);
 }
