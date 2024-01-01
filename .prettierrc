@@ -1,9 +1,9 @@
 {
-  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "@prettier/plugin-xml"],
 
   "arrowParens": "avoid",
 
-  "importOrder": ["^@/$"],
+  "importOrder": ["^@/assets/", "^@/components/", "^@/styles/", "^@/", "^[./]"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
   "importOrderCaseInsensitive": true
