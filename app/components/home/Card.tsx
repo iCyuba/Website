@@ -1,8 +1,10 @@
+import type { ReactNode } from "react";
+
 import { card, title } from "@/styles/home/card.css";
 
 interface CardProps {
-  title: string;
-  children?: React.ReactNode;
+  title: ReactNode;
+  children?: ReactNode;
   double?: boolean;
   className?: string;
 }

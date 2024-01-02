@@ -1,6 +1,6 @@
 import Socials from "@/components/home/About/Socials";
+import Status from "@/components/home/About/Status";
 import Time from "@/components/home/About/Time";
-import Card from "@/components/home/Card";
 
 import { container } from "@/styles/home/card.css";
 
@@ -9,8 +9,7 @@ function About() {
     <div className={container}>
       <Time />
 
-      {/* Placeholder */}
-      <Card title="status" />
+      <Status />
 
       <Socials />
     </div>

@@ -1,5 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 
+import { redis } from "@/lib/redis.server";
+
 import AboutContainer from "@/components/home/About/Container";
 
 import { home, title } from "@/styles/home/page.css";
@@ -11,6 +13,11 @@ export const meta: MetaFunction = () => {
     { name: "theme-color", content: "#ffffff" },
   ];
 };
+
+// Return the Discord status from Redis
+export function loader() {
+  return redis.get("discord-status");
+}
 
 export default function Index() {
   return (

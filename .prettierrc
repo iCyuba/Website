@@ -3,7 +3,14 @@
 
   "arrowParens": "avoid",
 
-  "importOrder": ["^@/assets/", "^@/components/", "^@/styles/", "^@/", "^[./]"],
+  "importOrder": [
+    "^@/(lib|routes)/",
+    "^@/assets/",
+    "^@/components/",
+    "^@/styles/",
+    "^@/",
+    "^[./]"
+  ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
   "importOrderCaseInsensitive": true
