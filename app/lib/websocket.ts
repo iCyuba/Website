@@ -1,9 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 
-const url =
-  import.meta.env.VITE_WS_URL ??
-  `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/status`;
-
 export function useWebSocketConnection() {
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [failed, setFailed] = useState(false);
@@ -26,6 +22,12 @@ export function useWebSocketConnection() {
   );
 
   const connect = useCallback(() => {
+    const url =
+      import.meta.env.VITE_WS_URL ??
+      `${location.protocol === "https:" ? "wss" : "ws"}://${
+        location.host
+      }/status`;
+
     const ws = new WebSocket(url);
     console.log("Connecting to websocket");
 
