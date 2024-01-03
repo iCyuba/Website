@@ -19,6 +19,7 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
+ENV NODE_ENV=production
 RUN pnpm build
 
 # Run the app
