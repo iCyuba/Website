@@ -2,6 +2,7 @@
   "plugins": ["@trivago/prettier-plugin-sort-imports", "@prettier/plugin-xml"],
 
   "arrowParens": "avoid",
+  "trailingComma": "es5",
 
   "importOrder": [
     "^@/(lib|routes)/",

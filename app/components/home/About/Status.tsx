@@ -1,7 +1,6 @@
 import { useLoaderData } from "@remix-run/react";
-import { useEffect, useState } from "react";
 
-import { useWebSocketConnection } from "@/lib/websocket";
+import { useStatus } from "@/lib/status";
 import type { loader } from "@/routes/_index";
 
 import Discord from "@/assets/discord.svg?react";
@@ -18,18 +17,7 @@ import {
 
 function Status() {
   const data = useLoaderData<typeof loader>();
-  const [status, setStatus] = useState(data);
-
-  // Listen for status updates from the websocket
-  const { websocket, connect, failed } = useWebSocketConnection();
-  useEffect(() => {
-    if (!websocket) return;
-
-    const listener = (event: MessageEvent<string>) => setStatus(event.data);
-    websocket.addEventListener("message", listener);
-
-    return () => websocket.removeEventListener("message", listener);
-  }, [websocket]);
+  const { status, connect } = useStatus(data ?? undefined);
 
   const displayStatus =
     status === "dnd" ? "do not disturb" : status === "idle" ? "away" : status;
@@ -43,7 +31,9 @@ function Status() {
       }
       className={container}
     >
-      {failed ? (
+      {status ? (
+        <span className={statusClass}>{displayStatus}</span>
+      ) : (
         <>
           <span className={fail}>Status failed to load.</span>
 
@@ -51,8 +41,6 @@ function Status() {
             Retry
           </button>
         </>
-      ) : (
-        <span className={statusClass}>{displayStatus}</span>
       )}
     </Card>
   );
