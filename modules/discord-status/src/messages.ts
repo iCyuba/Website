@@ -14,12 +14,25 @@ export const pingMessage = JSON.stringify({
   type: "ping",
 } satisfies PingMessage);
 
-export interface StatusMessage {
-  type: "status";
-  status: string;
+export enum Status {
+  Online = "online",
+  Away = "idle",
+  DnD = "dnd",
+  Offline = "offline",
 }
 
-export function statusMessage(status: string): string {
+export function toDisplayStatus(status: Status): keyof typeof Status {
+  return Object.entries(Status).find(
+    ([, value]) => value === status
+  )![0] as keyof typeof Status;
+}
+
+export interface StatusMessage {
+  type: "status";
+  status: Status;
+}
+
+export function statusMessage(status: Status): string {
   return JSON.stringify({ type: "status", status } satisfies StatusMessage);
 }
 

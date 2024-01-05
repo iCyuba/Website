@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
+import type { Status } from "discord-status";
 
 import { redis } from "@/lib/redis.server";
 
@@ -16,7 +17,7 @@ export const meta: MetaFunction = () => {
 
 // Return the Discord status from Redis
 export function loader() {
-  return redis.get("discord-status");
+  return redis.get("discord-status") as Promise<Status | null>;
 }
 
 export default function Index() {

@@ -1,7 +1,7 @@
-import type { Message } from "discord-status";
+import type { Message, Status } from "discord-status";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export function useStatus(defaultStatus?: string) {
+export function useStatus(defaultStatus?: Status) {
   const [status, setStatus] = useState(defaultStatus);
 
   const websocket = useRef<WebSocket | null>(null);

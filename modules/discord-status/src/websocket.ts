@@ -5,6 +5,7 @@ import {
   errorMessage,
   type Message,
   pingMessage,
+  Status,
   statusMessage,
 } from "./messages";
 
@@ -16,7 +17,7 @@ export async function open(ws: ServerWebSocket<Data>) {
   sockets.add(ws);
 
   // Send the current status to the client
-  ws.send(statusMessage((await redis.get("discord-status"))!));
+  ws.send(statusMessage((await redis.get("discord-status")) as Status));
 
   // Send a ping every minute to keep the connection alive
   const timeoutHandle = setInterval(() => ws.send(pingMessage), 60_000);
@@ -41,7 +42,7 @@ export async function message(ws: ServerWebSocket<Data>, msg: string | Buffer) {
     switch (data.type) {
       // Send the current status to the client, when requested
       case "request":
-        ws.send(statusMessage((await redis.get("discord-status"))!));
+        ws.send(statusMessage((await redis.get("discord-status")) as Status));
         break;
 
       // Valid, but no response needed

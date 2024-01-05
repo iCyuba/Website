@@ -1,4 +1,5 @@
 import { useLoaderData } from "@remix-run/react";
+import { toDisplayStatus } from "discord-status";
 
 import { useStatus } from "@/lib/status";
 import type { loader } from "@/routes/_index";
@@ -19,9 +20,6 @@ function Status() {
   const data = useLoaderData<typeof loader>();
   const { status, connect } = useStatus(data ?? undefined);
 
-  const displayStatus =
-    status === "dnd" ? "do not disturb" : status === "idle" ? "away" : status;
-
   return (
     <Card
       title={
@@ -32,7 +30,7 @@ function Status() {
       className={container}
     >
       {status ? (
-        <span className={statusClass}>{displayStatus}</span>
+        <span className={statusClass}>{toDisplayStatus(status)}</span>
       ) : (
         <>
           <span className={fail}>Status failed to load.</span>
