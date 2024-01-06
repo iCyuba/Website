@@ -1,6 +1,13 @@
-import { discord, redis } from "./clients";
+import { Client, GatewayIntentBits, Partials } from "discord.js";
+
 import { Status, statusMessage } from "./messages";
+import { redis } from "./redis";
 import { sockets } from "./websocket";
+
+export const discord = new Client({
+  intents: [GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildPresences],
+  partials: [Partials.GuildMember, Partials.User],
+});
 
 discord.on("ready", async () => {
   // Prefetch the guild and user
@@ -27,10 +34,25 @@ discord.on("presenceUpdate", async (old, presence) => {
   const status = presence.status as Status;
 
   // Update the stored status in Redis
-  await redis.set("discord-status", status);
+  await redis.set("discord:status", status);
+
+  // If the status was changed to offline or away, set the last online time
+  let lastOnline: Date | null = null;
+  if (
+    (status === Status.Offline && old?.status === Status.Away) ||
+    (status === Status.Away && old?.status === Status.Offline)
+  ) {
+    const timestamp = await redis.get("discord:last-seen");
+
+    if (timestamp) lastOnline = new Date(Number(timestamp));
+  } else if (status === Status.Offline || status === Status.Away) {
+    lastOnline = new Date();
+
+    await redis.set("discord:last-seen", lastOnline.getTime());
+  }
 
   // Send the update to all connected clients
-  for (const socket of sockets) socket.send(statusMessage(status));
+  for (const socket of sockets) socket.send(statusMessage(status, lastOnline));
 });
 
 await discord.login(Bun.env.DISCORD_TOKEN);

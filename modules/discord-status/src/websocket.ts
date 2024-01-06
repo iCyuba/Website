@@ -1,13 +1,12 @@
 import type { ServerWebSocket } from "bun";
 
-import { redis } from "./clients";
 import {
   errorMessage,
   type Message,
   pingMessage,
-  Status,
   statusMessage,
 } from "./messages";
+import { getStatusAndLastOnline } from "./redis";
 
 type Data = ReturnType<typeof setTimeout>;
 
@@ -17,7 +16,8 @@ export async function open(ws: ServerWebSocket<Data>) {
   sockets.add(ws);
 
   // Send the current status to the client
-  ws.send(statusMessage((await redis.get("discord-status")) as Status));
+  const { status, lastOnline } = await getStatusAndLastOnline();
+  ws.send(statusMessage(status, lastOnline));
 
   // Send a ping every minute to keep the connection alive
   const timeoutHandle = setInterval(() => ws.send(pingMessage), 60_000);
@@ -41,9 +41,12 @@ export async function message(ws: ServerWebSocket<Data>, msg: string | Buffer) {
 
     switch (data.type) {
       // Send the current status to the client, when requested
-      case "request":
-        ws.send(statusMessage((await redis.get("discord-status")) as Status));
+      case "request": {
+        const { status, lastOnline } = await getStatusAndLastOnline();
+
+        ws.send(statusMessage(status, lastOnline));
         break;
+      }
 
       // Valid, but no response needed
       case "ping":

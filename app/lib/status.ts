@@ -1,8 +1,14 @@
-import type { Message, Status } from "discord-status";
+import { SerializeFrom } from "@remix-run/node";
+import type { Message } from "discord-status";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export function useStatus(defaultStatus?: Status) {
-  const [status, setStatus] = useState(defaultStatus);
+import type { loader } from "@/routes/_index";
+
+export function useStatus(defaultState?: SerializeFrom<typeof loader>) {
+  const [status, setStatus] = useState(defaultState?.status ?? null);
+  const [lastOnline, setLastOnline] = useState<Date | null>(
+    defaultState?.lastOnline ? new Date(defaultState.lastOnline) : null
+  );
 
   const websocket = useRef<WebSocket | null>(null);
 
@@ -18,6 +24,7 @@ export function useStatus(defaultStatus?: Status) {
         // Update the status
         case "status":
           setStatus(data.status);
+          setLastOnline(data.lastOnline ? new Date(data.lastOnline) : null);
           break;
 
         // Valid, but no response needed
@@ -39,8 +46,9 @@ export function useStatus(defaultStatus?: Status) {
     // Clear the websocket reference
     websocket.current = null;
 
-    // Reset the status to undefined
-    setStatus(undefined);
+    // Reset the status to null
+    setStatus(null);
+    setLastOnline(null);
 
     // Log the close event
     console.log("[Status] Websocket closed");
@@ -86,5 +94,5 @@ export function useStatus(defaultStatus?: Status) {
     };
   }, [connect, onClose]);
 
-  return { status, connect };
+  return { status, lastOnline, connect };
 }

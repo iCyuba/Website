@@ -29,11 +29,19 @@ export function toDisplayStatus(status: Status): keyof typeof Status {
 
 export interface StatusMessage {
   type: "status";
-  status: Status;
+  status: Status | null;
+  lastOnline: number | null;
 }
 
-export function statusMessage(status: Status): string {
-  return JSON.stringify({ type: "status", status } satisfies StatusMessage);
+export function statusMessage(
+  status?: Status | null,
+  lastOnline?: Date | null
+): string {
+  return JSON.stringify({
+    type: "status",
+    status: status ?? null,
+    lastOnline: lastOnline?.getTime() ?? null,
+  } satisfies StatusMessage);
 }
 
 export interface ErrorMessage {

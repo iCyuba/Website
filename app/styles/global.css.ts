@@ -8,6 +8,7 @@ globalStyle("html, body", {
   padding: 0,
 
   fontFamily: "'Inter', sans-serif",
+  fontFeatureSettings: "'tnum'",
 
   "@supports": {
     "(font-variation-settings: normal)": {

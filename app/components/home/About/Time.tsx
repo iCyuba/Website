@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCurrentTime } from "@/lib/currentTime";
 
 import Card from "@/components/home/Card";
 
@@ -10,30 +10,23 @@ import {
   time as timeClass,
 } from "@/styles/home/time.css";
 
+const intl = new Intl.DateTimeFormat("en-GB", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+
+  hour: "numeric",
+  minute: "numeric",
+  hourCycle: "h12",
+
+  timeZone: "Europe/Prague",
+  timeZoneName: "short",
+});
+
 function Time() {
-  const intl = useRef(
-    new Intl.DateTimeFormat("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+  const date = useCurrentTime();
 
-      hour: "numeric",
-      minute: "numeric",
-      hourCycle: "h12",
-
-      timeZone: "Europe/Prague",
-      timeZoneName: "short",
-    }),
-  );
-
-  const [date, setDate] = useState(new Date());
-
-  useEffect(() => {
-    const interval = setInterval(() => setDate(new Date()), 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const parts = intl.current.formatToParts(date);
+  const parts = intl.formatToParts(date);
   const dateText = parts
     .splice(0, 5)
     .map(part => part.value)

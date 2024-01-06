@@ -1,4 +1,4 @@
-import { redis } from "./clients";
+import { getStatus } from "./redis";
 import * as websocket from "./websocket";
 
 // Create the websocket server for updates
@@ -13,7 +13,7 @@ Bun.serve({
 
     // Otherwise, return the current status (GET only)
     if (req.method !== "GET") return new Response(null, { status: 405 });
-    return new Response(await redis.get("discord-status"));
+    return new Response(await getStatus());
   },
 
   websocket,

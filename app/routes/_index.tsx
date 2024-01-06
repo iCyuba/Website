@@ -1,5 +1,5 @@
-import type { MetaFunction } from "@remix-run/node";
-import type { Status } from "discord-status";
+import { json, type MetaFunction } from "@remix-run/node";
+import { Status } from "discord-status";
 
 import { redis } from "@/lib/redis.server";
 
@@ -16,8 +16,19 @@ export const meta: MetaFunction = () => {
 };
 
 // Return the Discord status from Redis
-export function loader() {
-  return redis.get("discord-status") as Promise<Status | null>;
+export async function loader() {
+  const [status, lastOnline] = await redis.mget(
+    "discord:status",
+    "discord:last-seen"
+  );
+
+  return json({
+    status: status as Status | null,
+    lastOnline:
+      lastOnline && (status === Status.Offline || status === Status.Away)
+        ? new Date(Number(lastOnline))
+        : null,
+  });
 }
 
 export default function Index() {

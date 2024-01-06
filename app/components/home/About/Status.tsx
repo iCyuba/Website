@@ -1,7 +1,8 @@
 import { useLoaderData } from "@remix-run/react";
-import { toDisplayStatus } from "discord-status";
+import { Status as StatusEnum, toDisplayStatus } from "discord-status";
 
 import { useStatus } from "@/lib/status";
+import { useTimeDifference } from "@/lib/timeDiff";
 import type { loader } from "@/routes/_index";
 
 import Discord from "@/assets/discord.svg?react";
@@ -13,12 +14,17 @@ import {
   container,
   fail,
   icon,
+  lastOnline as lastOnlineClass,
+  lastOnlineLabel,
+  lastOnlineValue,
   status as statusClass,
 } from "@/styles/home/status.css";
 
 function Status() {
   const data = useLoaderData<typeof loader>();
-  const { status, connect } = useStatus(data ?? undefined);
+  const { status, lastOnline, connect } = useStatus(data);
+
+  const formattedLastOnline = useTimeDifference(lastOnline ?? new Date());
 
   return (
     <Card
@@ -30,7 +36,19 @@ function Status() {
       className={container}
     >
       {status ? (
-        <span className={statusClass}>{toDisplayStatus(status)}</span>
+        <>
+          <span className={statusClass}>{toDisplayStatus(status)}</span>
+
+          {(status === StatusEnum.Offline || status === StatusEnum.Away) && (
+            <div className={lastOnlineClass}>
+              <span className={lastOnlineLabel}>Last online:</span>
+
+              <span className={lastOnlineValue} suppressHydrationWarning>
+                {formattedLastOnline}
+              </span>
+            </div>
+          )}
+        </>
       ) : (
         <>
           <span className={fail}>Status failed to load.</span>
