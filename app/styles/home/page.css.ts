@@ -1,6 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
-import { color } from "@/styles/color";
+import { colors } from "@/styles/theme.css";
 
 export const home = style({
   display: "flex",
@@ -13,7 +13,7 @@ export const home = style({
   width: "100%",
   height: "100%",
 
-  backgroundColor: color[100],
+  backgroundColor: colors.bg[1],
 
   overflow: "hidden",
 
@@ -77,7 +77,7 @@ export const home = style({
 });
 
 globalStyle(`${home} ::selection`, {
-  backgroundColor: color[400],
+  backgroundColor: colors.fg[2],
   color: "#fff",
 });
 
@@ -87,7 +87,7 @@ export const title = style({
   fontSize: "8rem",
   fontWeight: 900,
 
-  color: color[500],
+  color: colors.fg[1],
 
   zIndex: 2,
 
@@ -100,7 +100,7 @@ export const title = style({
 
     marginBlock: "2rem",
 
-    backgroundColor: color[400],
+    backgroundColor: colors.fg[2],
     borderRadius: "0.5rem",
 
     transform: "translateX(-10%)",

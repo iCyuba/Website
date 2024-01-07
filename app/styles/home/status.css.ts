@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-import { color } from "@/styles/color";
+import { colors } from "@/styles/theme.css";
 
 export const container = style({
   display: "grid",
@@ -36,7 +36,7 @@ export const lastOnline = style({
 });
 
 export const lastOnlineLabel = style({
-  color: color[400],
+  color: colors.fg[2],
 
   fontWeight: 800,
   fontVariant: "small-caps",

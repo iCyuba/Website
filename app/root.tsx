@@ -11,10 +11,11 @@ import "inter-ui/inter-variable-latin.css";
 import fontUrl from "inter-ui/variable-latin/InterVariable-subset.woff2?url";
 
 import "@/styles/global.css";
+import { slateTheme } from "@/styles/theme.css";
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="en" className={slateTheme}>
       <head>
         <meta charSet="utf-8" />
         <meta

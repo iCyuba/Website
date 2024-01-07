@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-import { color } from "@/styles/color";
+import { colors } from "@/styles/theme.css";
 
 export const button = style({
   display: "flex",
@@ -16,7 +16,7 @@ export const button = style({
   borderRadius: "0.5em",
 
   backgroundColor: "transparent",
-  color: color[500],
+  color: colors.fg[1],
 
   cursor: "pointer",
 

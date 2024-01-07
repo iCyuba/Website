@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-import { color } from "@/styles/color";
+import { colors } from "@/styles/theme.css";
 
 export const container = style({
   display: "flex",
@@ -24,7 +24,7 @@ export const media = style({
   alignItems: "center",
 
   textDecoration: "none",
-  color: color[500],
+  color: colors.fg[1],
 });
 
 export const icon = style({
@@ -59,5 +59,5 @@ export const name = style({
   fontSize: "0.9em",
   fontWeight: 600,
 
-  color: color[400],
+  color: colors.fg[2],
 });

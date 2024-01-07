@@ -1,7 +1,7 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-import { color } from "@/styles/color";
+import { colors } from "@/styles/theme.css";
 
 const width = createVar();
 const rows = createVar();
@@ -49,10 +49,10 @@ export const card = recipe({
 
     padding: "0.125rem 0.25rem",
 
-    backgroundColor: `color-mix(in srgb, ${color[300]}, ${color[100]})`,
-    color: color[500],
+    backgroundColor: colors.bg[2],
+    color: colors.fg[1],
 
-    border: `0.25rem solid ${color[300]}`,
+    border: `0.25rem solid ${colors.fg[3]}`,
     borderRadius: "0.5rem",
   },
 
@@ -69,7 +69,7 @@ export const title = style({
   fontVariantCaps: "small-caps",
   textTransform: "lowercase",
 
-  color: color[400],
+  color: colors.fg[2],
 
   transform: "translateY(-0.25rem)",
 });

@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-import { color } from "@/styles/color";
+import { colors } from "@/styles/theme.css";
 
 export const container = style({
   display: "flex",
@@ -33,6 +33,6 @@ export const divider = style({
 
   marginBlock: "0.25em",
 
-  backgroundColor: color[400],
+  backgroundColor: colors.fg[2],
   borderRadius: "0.5em",
 });
