@@ -1,5 +1,5 @@
 import { SerializeFrom } from "@remix-run/node";
-import type { Message } from "discord-status";
+import { type Message, toDisplayStatus } from "discord-status";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { loader } from "@/routes/_index";
@@ -93,6 +93,15 @@ export function useStatus(defaultState?: SerializeFrom<typeof loader>) {
       ws?.close();
     };
   }, [connect, onClose]);
+
+  // Change the title when the status changes
+  useEffect(() => {
+    document.title = status ? `iCyuba - ${toDisplayStatus(status)}` : "iCyuba";
+
+    return () => {
+      document.title = "iCyuba";
+    };
+  }, [status]);
 
   return { status, lastOnline, connect };
 }
