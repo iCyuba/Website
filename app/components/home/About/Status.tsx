@@ -1,11 +1,11 @@
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { useLoaderData } from "@remix-run/react";
 import { Status as StatusEnum, toDisplayStatus } from "discord-status";
+import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
 
 import { useStatus } from "@/lib/status";
 import { useTimeDifference } from "@/lib/timeDiff";
 import type { loader } from "@/routes/_index";
-
-import Discord from "@/assets/discord.svg?react";
 
 import Card from "@/components/home/Card";
 
@@ -30,7 +30,8 @@ function Status() {
     <Card
       title={
         <>
-          status <Discord className={icon} width="1em" />
+          status
+          <FontAwesomeSvgIcon className={icon} icon={faDiscord} width="1rem" />
         </>
       }
       className={container}
