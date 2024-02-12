@@ -47,7 +47,7 @@ function Time() {
       <span className={label} suppressHydrationWarning>
         <span className={timeClass} suppressHydrationWarning>
           {time}
-        </span>{" "}
+        </span>
         <span className={cycleClass} suppressHydrationWarning>
           {cycle}
         </span>{" "}

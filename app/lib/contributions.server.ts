@@ -68,7 +68,7 @@ export async function getChart(): Promise<Level[]> {
     document,
     variables: { from, to },
     requestHeaders: {
-      authorization: `Bearer ${import.meta.env.GITHUB_TOKEN}`,
+      authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     },
   });
 
