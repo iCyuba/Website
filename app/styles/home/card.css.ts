@@ -4,30 +4,31 @@ import { recipe } from "@vanilla-extract/recipes";
 import { colors } from "@/styles/theme.css";
 
 const width = createVar();
-const rows = createVar();
+export const columns = createVar();
+
 export const container = style({
   vars: {
     [width]: "12rem",
-    [rows]: "4",
+    [columns]: "4",
   },
 
   display: "grid",
 
-  gridTemplateColumns: `repeat(${rows}, ${width})`,
+  gridTemplateColumns: `repeat(${columns}, ${width})`,
   gridAutoRows: "8rem",
 
-  gap: "1rem",
+  gap: "1em",
 
-  padding: "1rem",
-  paddingLeft: "calc(1rem + env(safe-area-inset-left))",
-  paddingRight: "calc(1rem + env(safe-area-inset-right))",
+  margin: "1em",
+  marginLeft: "calc(1em + env(safe-area-inset-left))",
+  marginRight: "calc(1em + env(safe-area-inset-right))",
 
   zIndex: 2,
 
   "@media": {
     "(max-width: 64rem)": {
       vars: {
-        [rows]: "2",
+        [columns]: "2",
       },
     },
 
@@ -46,6 +47,7 @@ export const card = recipe({
   base: {
     display: "flex",
     flexDirection: "column",
+    gap: "0.125em",
 
     padding: "0.125rem 0.25rem",
 
@@ -62,9 +64,15 @@ export const card = recipe({
 });
 
 export const title = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "0.25em",
+
   margin: 0,
 
   fontSize: "1.125rem",
+  lineHeight: "1em",
   fontWeight: 800,
   fontVariantCaps: "small-caps",
   textTransform: "lowercase",
@@ -72,4 +80,10 @@ export const title = style({
   color: colors.fg[2],
 
   transform: "translateY(-0.25rem)",
+});
+
+export const icon = style({
+  height: "0.75em",
+
+  transform: "translateY(0.0625em)",
 });

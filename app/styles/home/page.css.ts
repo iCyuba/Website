@@ -7,15 +7,14 @@ export const home = style({
   flexDirection: "column",
   gap: "2rem",
 
-  alignItems: "center",
-  justifyContent: "center",
+  alignItems: "safe center",
+  justifyContent: "safe center",
 
-  width: "100%",
-  height: "100%",
+  minWidth: "100%",
+  width: "max-content",
+  minHeight: "100%",
 
   backgroundColor: colors.bg[1],
-
-  overflow: "hidden",
 
   "::before": {
     content: "''",
@@ -39,8 +38,9 @@ export const home = style({
     position: "fixed",
     display: "block",
 
-    top: 0,
+    inset: 0,
     right: "2.5rem",
+    left: "auto",
 
     borderBottom: "100vh solid transparent",
     borderBottomWidth: "100dvh", // Newer browsers
@@ -51,7 +51,7 @@ export const home = style({
 
   "@media": {
     "(max-width: 64rem) or (max-height: 36rem)": {
-      gap: "0rem",
+      gap: "0.5rem",
     },
 
     "(max-width: 64rem)": {
@@ -64,8 +64,10 @@ export const home = style({
       },
 
       "::after": {
+        left: 0,
         right: 0,
         top: "2.5rem",
+        bottom: "auto",
 
         borderTop: "2.5rem solid #fff",
         borderRight: "100vw solid transparent",
@@ -91,21 +93,6 @@ export const title = style({
 
   zIndex: 2,
 
-  "::after": {
-    content: "''",
-    display: "block",
-
-    width: "calc(125%)",
-    height: "0.25rem",
-
-    marginBlock: "2rem",
-
-    backgroundColor: colors.fg[2],
-    borderRadius: "0.5rem",
-
-    transform: "translateX(-10%)",
-  },
-
   "@media": {
     "(max-height: 36rem)": {
       fontSize: "6.5rem",
@@ -114,14 +101,28 @@ export const title = style({
     "(max-width: 32rem) or (max-height: 32rem)": {
       fontSize: "5rem",
     },
+  },
+});
 
+export const divider = style({
+  content: "''",
+  display: "block",
+
+  width: "35rem",
+  height: "0.25rem",
+
+  backgroundColor: colors.fg[2],
+  borderRadius: "0.5rem",
+
+  "@media": {
     "(max-width: 64rem) or (max-height: 36rem)": {
-      "::after": {
-        width: "calc(100%)",
-        marginBlock: "0.5rem",
+      width: "25rem",
 
-        transform: "unset",
-      },
+      transform: "unset",
+    },
+
+    "(max-width: 32rem) or (max-height: 32rem)": {
+      width: "15rem",
     },
   },
 });

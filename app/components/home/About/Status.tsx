@@ -10,15 +10,24 @@ import type { loader } from "@/routes/_index";
 import Card from "@/components/home/Card";
 
 import { button } from "@/styles/components/button.css";
+import { icon } from "@/styles/home/card.css";
 import {
   container,
   fail,
-  icon,
   lastOnline as lastOnlineClass,
   lastOnlineLabel,
   lastOnlineValue,
   status as statusClass,
 } from "@/styles/home/status.css";
+
+function Title() {
+  return (
+    <>
+      status
+      <FontAwesomeSvgIcon className={icon} icon={faDiscord} width="1rem" />
+    </>
+  );
+}
 
 function Status() {
   const data = useLoaderData<typeof loader>();
@@ -26,38 +35,29 @@ function Status() {
 
   const formattedLastOnline = useTimeDifference(lastOnline ?? new Date());
 
+  if (!status)
+    return (
+      <Card title={<Title />} className={container}>
+        <span className={fail}>Status failed to load.</span>
+
+        <button onClick={connect} className={button}>
+          Retry
+        </button>
+      </Card>
+    );
+
   return (
-    <Card
-      title={
-        <>
-          status
-          <FontAwesomeSvgIcon className={icon} icon={faDiscord} width="1rem" />
-        </>
-      }
-      className={container}
-    >
-      {status ? (
-        <>
-          <span className={statusClass}>{toDisplayStatus(status)}</span>
+    <Card title={<Title />} className={container}>
+      <span className={statusClass}>{toDisplayStatus(status)}</span>
 
-          {(status === StatusEnum.Offline || status === StatusEnum.Away) && (
-            <div className={lastOnlineClass}>
-              <span className={lastOnlineLabel}>Last online:</span>
+      {(status === StatusEnum.Offline || status === StatusEnum.Away) && (
+        <div className={lastOnlineClass}>
+          <span className={lastOnlineLabel}>Last online:</span>
 
-              <span className={lastOnlineValue} suppressHydrationWarning>
-                {formattedLastOnline}
-              </span>
-            </div>
-          )}
-        </>
-      ) : (
-        <>
-          <span className={fail}>Status failed to load.</span>
-
-          <button onClick={connect} className={button}>
-            Retry
-          </button>
-        </>
+          <span className={lastOnlineValue} suppressHydrationWarning>
+            {formattedLastOnline}
+          </span>
+        </div>
       )}
     </Card>
   );

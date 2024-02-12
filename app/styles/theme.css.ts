@@ -12,6 +12,13 @@ export const [slateTheme, colors] = createTheme({
     2: slate[400],
     3: slate[300],
   },
+
+  chart: {
+    1: `color-mix(in srgb, ${slate[400]}, ${slate[300]})`,
+    2: `color-mix(in srgb, ${slate[500]} 25%, ${slate[400]})`,
+    3: slate[500],
+    4: `color-mix(in srgb, ${slate[700]} 25%, ${slate[600]})`,
+  },
 });
 
 export const pinkTheme = createTheme(colors, {
@@ -24,6 +31,13 @@ export const pinkTheme = createTheme(colors, {
     1: `color-mix(in srgb, ${rose[600]}, ${rose[500]})`,
     2: `color-mix(in srgb, ${rose[500]}, ${rose[400]})`,
     3: `color-mix(in srgb, ${rose[300]}, ${rose[200]})`,
+  },
+
+  chart: {
+    1: `color-mix(in srgb, ${rose[400]} 25%, ${rose[300]})`,
+    2: `color-mix(in srgb, ${rose[500]}, ${rose[400]})`,
+    3: rose[600],
+    4: rose[700],
   },
 });
 
@@ -50,7 +64,14 @@ export const greenTheme = createTheme(colors, {
   fg: {
     1: emerald[600],
     2: emerald[500],
-    3: `color-mix(in hsl, ${emerald[400]}, ${emerald[300]})`,
+    3: `color-mix(in srgb, ${emerald[400]} 25%, ${emerald[300]})`,
+  },
+
+  chart: {
+    1: `color-mix(in srgb, ${emerald[500]}, ${emerald[400]})`,
+    2: `color-mix(in srgb, ${emerald[600]} 66%, ${emerald[500]})`,
+    3: `color-mix(in srgb, ${emerald[700]}, ${emerald[600]})`,
+    4: emerald[800],
   },
 });
 
@@ -61,8 +82,15 @@ export const blueTheme = createTheme(colors, {
   },
 
   fg: {
-    1: blue[500],
-    2: blue[400],
+    1: blue[600],
+    2: `color-mix(in srgb, ${blue[500]}, ${blue[400]})`,
     3: blue[300],
+  },
+
+  chart: {
+    1: blue[400],
+    2: `color-mix(in srgb, ${blue[600]} 33%, ${blue[500]})`,
+    3: `color-mix(in srgb, ${blue[700]}, ${blue[600]})`,
+    4: blue[800],
   },
 });

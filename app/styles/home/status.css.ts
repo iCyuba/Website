@@ -14,12 +14,6 @@ export const container = style({
   paddingBottom: "0.5em",
 });
 
-export const icon = style({
-  width: "0.8em",
-
-  marginInline: "0.25em",
-});
-
 export const status = style({
   fontWeight: 700,
   fontSize: "1.5em",
