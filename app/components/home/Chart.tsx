@@ -13,6 +13,9 @@ import Card from "@/components/home/Card";
 import { columns, container, icon } from "@/styles/home/card.css";
 import { chart, day } from "@/styles/home/chart.css";
 
+/** 27 weeks, on mobile only 26 will be shown */
+export const DAYS = 27 * 7;
+
 function Title() {
   return (
     <>
@@ -30,7 +33,12 @@ function Chart() {
     <div className={container} style={assignInlineVars({ [columns]: "2" })}>
       <Card title={<Title />} double className={chart}>
         {data.chart.map((level, i) => (
-          <Day key={i} level={level} enabled={i < 23 * 7 || i % 7 <= today} />
+          <Day
+            key={i}
+            level={level}
+            enabled={i < DAYS - 7 || i % 7 <= today}
+            number={i}
+          />
         ))}
       </Card>
     </div>
@@ -40,13 +48,19 @@ function Chart() {
 const Day = memo(function Day({
   level,
   enabled,
+  number,
 }: {
   level: Level;
   enabled: boolean;
+  number: number;
 }) {
   if (!enabled) return null;
 
-  return <span className={day({ level: enabled ? level : undefined })} />;
+  return (
+    <span
+      className={day({ level: enabled ? level : undefined, old: number < 7 })}
+    />
+  );
 });
 
 export default Chart;

@@ -2,6 +2,8 @@ import { request } from "graphql-request";
 
 import { redis } from "@/lib/redis.server";
 
+import { DAYS } from "@/components/home/Chart";
+
 import { graphql } from "@/generated/gql";
 import { ContributionLevel } from "@/generated/gql/graphql";
 
@@ -20,9 +22,6 @@ const document = graphql(`
     }
   }
 `);
-
-/** 24 weeks */
-const DAYS = 24 * 7;
 
 export type Level = 0 | 1 | 2 | 3 | 4;
 
