@@ -58,7 +58,7 @@ const Day = memo(function Day({
 
   return (
     <span
-      className={day({ level: enabled ? level : undefined, old: number < 7 })}
+      className={day({ level, old: number < 7 })}
     />
   );
 });

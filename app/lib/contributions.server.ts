@@ -1,13 +1,17 @@
-import { request } from "graphql-request";
+import { graphql } from "@octokit/graphql";
+import type { ContributionLevel, User } from "@octokit/graphql-schema";
 
 import { redis } from "@/lib/redis.server";
 
 import { DAYS } from "@/components/home/Chart";
 
-import { graphql } from "@/generated/gql";
-import { ContributionLevel } from "@/generated/gql/graphql";
+const graphqlWithAuth = graphql.defaults({
+  headers: {
+    authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+  },
+});
 
-const document = graphql(`
+const query = /* GraphQL */ `
   query ContributionsQuery($from: DateTime!, $to: DateTime!) {
     viewer {
       contributionsCollection(from: $from, to: $to) {
@@ -21,26 +25,24 @@ const document = graphql(`
       }
     }
   }
-`);
+`;
 
 export type Level = 0 | 1 | 2 | 3 | 4;
 
 const compact: Record<ContributionLevel, Level> = {
-  [ContributionLevel.None]: 0,
-  [ContributionLevel.FirstQuartile]: 1,
-  [ContributionLevel.SecondQuartile]: 2,
-  [ContributionLevel.ThirdQuartile]: 3,
-  [ContributionLevel.FourthQuartile]: 4,
+  NONE: 0,
+  FIRST_QUARTILE: 1,
+  SECOND_QUARTILE: 2,
+  THIRD_QUARTILE: 3,
+  FOURTH_QUARTILE: 4,
 };
 
 export async function getChart(): Promise<Level[]> {
   const to = new Date(); // Closest Saturday
   to.setDate(to.getDate() + (6 - to.getDay()));
-  console.log(to);
 
   const from = new Date(to); // - 24 weeks + 1 day (Sunday)
   from.setDate(to.getDate() - DAYS + 1);
-  console.log(from);
 
   // Check redis for cached data
   const [cacheDate, cachedData] = await redis.mget(
@@ -57,23 +59,18 @@ export async function getChart(): Promise<Level[]> {
       to.getTime() - date.getTime() < 15 * 60 * 1000 &&
       to.getDate() === date.getDate()
     ) {
-      console.log("Using cached data");
       return data;
     }
   }
 
-  const query = await request({
-    url: "https://api.github.com/graphql",
-    document,
-    variables: { from, to },
-    requestHeaders: {
-      authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-    },
+  const { viewer } = await graphqlWithAuth<{ viewer: User }>(query, {
+    from: from.toISOString(),
+    to: to.toISOString(),
   });
 
   const data =
-    query.viewer.contributionsCollection.contributionCalendar.weeks.flatMap(
-      week => week.contributionDays.map(day => compact[day.contributionLevel])
+    viewer.contributionsCollection.contributionCalendar.weeks.flatMap(week =>
+      week.contributionDays.map(day => compact[day.contributionLevel])
     );
 
   // Cache the data
