@@ -5,7 +5,7 @@ import { memo } from "react";
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
 
 import type { Level } from "@/lib/contributions.server";
-import { useCurrentTime } from "@/lib/currentTime";
+import { getTimeSnapshot, useCurrentTime } from "@/lib/currentTime";
 import type { loader } from "@/routes/_index";
 
 import Card from "@/components/home/Card";
@@ -25,8 +25,14 @@ function Title() {
   );
 }
 
+function getDaySnapshot() {
+  const time = getTimeSnapshot();
+
+  return time.getDay();
+}
+
 function Chart() {
-  const today = useCurrentTime().getDay();
+  const today = useCurrentTime(getDaySnapshot);
   const data = useLoaderData<typeof loader>();
 
   return (
@@ -56,11 +62,7 @@ const Day = memo(function Day({
 }) {
   if (!enabled) return null;
 
-  return (
-    <span
-      className={day({ level, old: number < 7 })}
-    />
-  );
+  return <span className={day({ level, old: number < 7 })} />;
 });
 
 export default Chart;

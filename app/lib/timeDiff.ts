@@ -1,4 +1,6 @@
-import { useCurrentTime } from "@/lib/currentTime";
+import { useCallback } from "react";
+
+import { getTimeSnapshot, useCurrentTime } from "@/lib/currentTime";
 
 const second = 1000;
 const minute = second * 60;
@@ -22,16 +24,28 @@ const intl = new Intl.RelativeTimeFormat("en-GB", {
   numeric: "auto",
 });
 
-export function useTimeDifference(date: Date) {
-  const rn = useCurrentTime();
+/**
+ * Formats the time difference between the current time and the given date.
+ *
+ * If the given date is not provided, undefined will be returned.
+ * @param date The date to compare the current time to.
+ * @returns The formatted time difference.
+ */
+export function useTimeDifference(date?: Date | null) {
+  const getSnapshot = useCallback(() => {
+    if (!date) return;
 
-  const diff = date.getTime() - rn.getTime();
+    const time = getTimeSnapshot();
+    const diff = date.getTime() - time.getTime();
 
-  for (const { ms, name } of units) {
-    if (Math.abs(diff) >= ms) {
-      return intl.format(Math.ceil(diff / ms), name);
+    for (const { ms, name } of units) {
+      if (Math.abs(diff) >= ms) {
+        return intl.format(Math.ceil(diff / ms), name);
+      }
     }
-  }
 
-  return intl.format(0, "second");
+    return intl.format(0, "second");
+  }, [date]);
+
+  return useCurrentTime(getSnapshot);
 }

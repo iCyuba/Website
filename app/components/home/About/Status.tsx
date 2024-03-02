@@ -33,7 +33,7 @@ function Status() {
   const data = useLoaderData<typeof loader>();
   const { status, lastOnline, connect } = useStatus(data);
 
-  const formattedLastOnline = useTimeDifference(lastOnline ?? new Date());
+  const formattedLastOnline = useTimeDifference(lastOnline);
 
   if (!status)
     return (

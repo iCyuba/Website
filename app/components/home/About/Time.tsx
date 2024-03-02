@@ -1,4 +1,4 @@
-import { useCurrentTime } from "@/lib/currentTime";
+import { usePragueTime } from "@/lib/pragueTime";
 
 import Card from "@/components/home/Card";
 
@@ -10,37 +10,8 @@ import {
   time as timeClass,
 } from "@/styles/home/time.css";
 
-const intl = new Intl.DateTimeFormat("en-GB", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-
-  hour: "numeric",
-  minute: "numeric",
-  hourCycle: "h12",
-
-  timeZone: "Europe/Prague",
-  timeZoneName: "short",
-});
-
 function Time() {
-  const date = useCurrentTime();
-
-  const parts = intl.formatToParts(date);
-  const dateText = parts
-    .splice(0, 5)
-    .map(part => part.value)
-    .join("");
-
-  parts.shift();
-
-  const time = parts
-    .splice(0, 3)
-    .map(part => part.value)
-    .join("");
-
-  const cycle = parts[1].value;
-  const zone = parts[3].value;
+  const { time, cycle, zone, date } = usePragueTime();
 
   return (
     <Card title="local time" className={container}>
@@ -57,7 +28,7 @@ function Time() {
       <span className={divider} />
 
       <span className={label} suppressHydrationWarning>
-        {dateText}
+        {date}
       </span>
     </Card>
   );
