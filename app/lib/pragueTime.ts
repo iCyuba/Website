@@ -1,4 +1,4 @@
-import { getTimeSnapshot, useCurrentTime } from "@/lib/currentTime";
+import { time as currentTime, useCurrentTime } from "@/lib/currentTime";
 
 const intl = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
@@ -23,9 +23,7 @@ export interface FormattedDate {
 let snapshot: FormattedDate | undefined;
 
 function getPragueTimeSnapshot(): FormattedDate {
-  const now = getTimeSnapshot();
-
-  const parts = intl.formatToParts(now);
+  const parts = intl.formatToParts(currentTime);
   const date = parts
     .splice(0, 5)
     .map(part => part.value)

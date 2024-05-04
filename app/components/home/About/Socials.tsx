@@ -14,8 +14,8 @@ import {
   icon as iconClass,
   label,
   media,
-  name,
-  title,
+  name as nameClass,
+  title as titleClass,
 } from "@/styles/home/socials.css";
 
 function Socials() {
@@ -37,19 +37,19 @@ interface MediaProps {
   name: string;
 }
 
-function Media(props: MediaProps) {
+function Media({ icon, title, name }: MediaProps) {
   return (
-    <a className={media} href={`https://icy.cx/${props.title.toLowerCase()}`}>
+    <a className={media} href={`https://icy.cx/${title.toLowerCase()}`}>
       <FontAwesomeSvgIcon
         className={iconClass}
-        icon={props.icon}
+        icon={icon}
         width={40}
         height={40}
       />
 
       <div className={label}>
-        <span className={title}>{props.title}</span>
-        <span className={name}>{props.name}</span>
+        <span className={titleClass}>{title}</span>
+        <span className={nameClass}>{name}</span>
       </div>
     </a>
   );

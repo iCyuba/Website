@@ -4,8 +4,12 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), vanillaExtractPlugin(), remix()],
+  plugins: [remix(), tsconfigPaths(), vanillaExtractPlugin()],
 
   // Using lightningcss, because it can transform `color-mix()` to a hex value.
   build: { sourcemap: true, cssMinify: "lightningcss" },
+
+  esbuild: {
+    mangleProps: /[^_]_$/,
+  },
 });

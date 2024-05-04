@@ -15,16 +15,10 @@ export function useCurrentTime<T>(
 ): T;
 export function useCurrentTime(): Date;
 export function useCurrentTime(
-  getSnapshot?: () => Date,
-  getServerSnapshot: (() => Date) | undefined = getSnapshot
+  getSnapshot: () => Date = () => time,
+  getServerSnapshot: () => Date = getSnapshot
 ): Date {
-  const time = useSyncExternalStore(
-    subscribe,
-    getSnapshot ?? getTimeSnapshot,
-    getServerSnapshot ?? getTimeSnapshot
-  );
-
-  return time;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
 // Code to make the above work
@@ -32,20 +26,17 @@ export function useCurrentTime(
 // This is to avoid making a timer for each component that uses the hook
 
 const subscribers = new Set<() => void>();
-let time = new Date();
+export let time = new Date();
 
-setInterval(() => {
-  time = new Date();
+if (typeof window !== "undefined")
+  setInterval(() => {
+    time = new Date();
 
-  subscribers.forEach(fn => fn());
-}, 1000);
+    subscribers.forEach(fn => fn());
+  }, 1000);
 
 function subscribe(fn: () => void) {
   subscribers.add(fn);
 
   return () => subscribers.delete(fn);
-}
-
-export function getTimeSnapshot() {
-  return time;
 }

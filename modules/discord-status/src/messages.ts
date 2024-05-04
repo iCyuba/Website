@@ -2,7 +2,7 @@ export interface RequestMessage {
   type: "request";
 }
 
-export const requestMessage = JSON.stringify({
+export const requestMessage = /* @__PURE__ */ JSON.stringify({
   type: "request",
 } satisfies RequestMessage);
 
@@ -10,7 +10,7 @@ export interface PingMessage {
   type: "ping";
 }
 
-export const pingMessage = JSON.stringify({
+export const pingMessage = /* @__PURE__ */ JSON.stringify({
   type: "ping",
 } satisfies PingMessage);
 

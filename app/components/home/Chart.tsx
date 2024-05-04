@@ -1,11 +1,9 @@
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useLoaderData } from "@remix-run/react";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { memo } from "react";
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
 
-import type { Level } from "@/lib/contributions.server";
-import { getTimeSnapshot, useCurrentTime } from "@/lib/currentTime";
+import { time, useCurrentTime } from "@/lib/currentTime";
 import type { loader } from "@/routes/_index";
 
 import Card from "@/components/home/Card";
@@ -26,8 +24,6 @@ function Title() {
 }
 
 function getDaySnapshot() {
-  const time = getTimeSnapshot();
-
   return time.getDay();
 }
 
@@ -38,31 +34,16 @@ function Chart() {
   return (
     <div className={container} style={assignInlineVars({ [columns]: "2" })}>
       <Card title={<Title />} double className={chart}>
-        {data.chart.map((level, i) => (
-          <Day
+        {/* Length = All days - days in the future */}
+        {Array.from({ length: DAYS - 7 + (today ? today : 7) }).map((_, i) => (
+          <span
+            className={day({ level_: data.chart[i], old_: i < 7 })}
             key={i}
-            level={level}
-            enabled={i < DAYS - 7 || i % 7 <= today}
-            number={i}
           />
         ))}
       </Card>
     </div>
   );
 }
-
-const Day = memo(function Day({
-  level,
-  enabled,
-  number,
-}: {
-  level: Level;
-  enabled: boolean;
-  number: number;
-}) {
-  if (!enabled) return null;
-
-  return <span className={day({ level, old: number < 7 })} />;
-});
 
 export default Chart;

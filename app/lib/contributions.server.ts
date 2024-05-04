@@ -51,16 +51,16 @@ export async function getChart(): Promise<Level[]> {
   );
 
   if (cacheDate && cachedData) {
-    const date = new Date(cacheDate);
+    // const date = new Date(cacheDate);
     const data = JSON.parse(cachedData);
 
     // If the data is cached and the time difference is less than 15 minutes and the day is the same, return the cached data
-    if (
-      to.getTime() - date.getTime() < 15 * 60 * 1000 &&
-      to.getDate() === date.getDate()
-    ) {
-      return data;
-    }
+    // if (
+    // to.getTime() - date.getTime() < 15 * 60 * 1000 &&
+    // to.getDate() === date.getDate()
+    // ) {
+    return data;
+    // }
   }
 
   const { viewer } = await graphqlWithAuth<{ viewer: User }>(query, {

@@ -59,7 +59,7 @@ export const card = recipe({
   },
 
   variants: {
-    double: { true: { gridColumn: "span 2" } },
+    double_: { true: { gridColumn: "span 2" } },
   },
 });
 

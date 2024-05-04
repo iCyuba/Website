@@ -1,23 +1,16 @@
 import { useCallback } from "react";
 
-import { getTimeSnapshot, useCurrentTime } from "@/lib/currentTime";
+import { time, useCurrentTime } from "@/lib/currentTime";
 
-const second = 1000;
-const minute = second * 60;
-const hour = minute * 60;
-const day = hour * 24;
-const week = day * 7;
-const month = day * 30;
-const year = month * 12;
-
-const units: { ms: number; name: Intl.RelativeTimeFormatUnit }[] = [
-  { ms: year, name: "year" },
-  { ms: month, name: "month" },
-  { ms: week, name: "week" },
-  { ms: day, name: "day" },
-  { ms: hour, name: "hour" },
-  { ms: minute, name: "minute" },
-  { ms: second, name: "second" },
+const day = 86_400_000;
+const units: [Intl.RelativeTimeFormatUnit, number][] = [
+  ["year", day * 365],
+  ["month", day * 30],
+  ["week", day * 7],
+  ["day", day],
+  ["hour", 3_600_000],
+  ["minute", 60_000],
+  ["second", 1000],
 ];
 
 const intl = new Intl.RelativeTimeFormat("en-GB", {
@@ -35,10 +28,8 @@ export function useTimeDifference(date?: Date | null) {
   const getSnapshot = useCallback(() => {
     if (!date) return;
 
-    const time = getTimeSnapshot();
     const diff = date.getTime() - time.getTime();
-
-    for (const { ms, name } of units) {
+    for (const [name, ms] of units) {
       if (Math.abs(diff) >= ms) {
         return intl.format(Math.ceil(diff / ms), name);
       }

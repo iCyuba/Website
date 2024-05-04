@@ -39,7 +39,7 @@ export const day = recipe({
   },
 
   variants: {
-    level: {
+    level_: {
       0: { backgroundColor: colors.fg[3] },
       1: { backgroundColor: colors.chart[1] },
       2: { backgroundColor: colors.chart[2] },
@@ -47,7 +47,7 @@ export const day = recipe({
       4: { backgroundColor: colors.chart[4] },
     },
 
-    old: {
+    old_: {
       // Don't render old days on small screens
       true: {
         "@media": {
