@@ -35,7 +35,7 @@ function Chart() {
     <div className={container} style={assignInlineVars({ [columns]: "2" })}>
       <Card title={<Title />} double className={chart}>
         {/* Length = All days - days in the future */}
-        {Array.from({ length: DAYS - 7 + (today ? today : 7) }).map((_, i) => (
+        {Array.from({ length: DAYS - 6 + today }).map((_, i) => (
           <span
             className={day({ level_: data.chart[i], old_: i < 7 })}
             key={i}

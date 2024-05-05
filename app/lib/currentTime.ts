@@ -4,8 +4,8 @@ import { useSyncExternalStore } from "react";
  * Automatically updates the current time every second.
  *
  * If you want to use a custom getSnapshot function, you can pass it as the first argument.
- * To get the current time in your custom getSnapshot function, you can use the exported `getTimeSnapshot` function.
- * @param getSnapshot Function for getting current time. Defaults to the exported `getTimeSnapshot` function.
+ * To get the current time in your custom getSnapshot function, you can use the exported `time` variable.
+ * @param getSnapshot Function for getting current time. Defaults to `() => time`.
  * @param getServerSnapshot The function to get the current time on the server. Defaults to the same as `getSnapshot`.
  * @returns The current time.
  */
@@ -32,7 +32,7 @@ if (typeof window !== "undefined")
   setInterval(() => {
     time = new Date();
 
-    subscribers.forEach(fn => fn());
+    for (const fn of subscribers) fn();
   }, 1000);
 
 function subscribe(fn: () => void) {
