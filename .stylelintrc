@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-css-modules",
+    "stylelint-config-clean-order"
+  ],
+  "rules": {
+    "declaration-no-important": true,
+    "scss/at-extend-no-missing-placeholder": null
+  },
+  "ignoreFiles": "build/**/*.css"
+}

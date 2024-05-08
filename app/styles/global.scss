@@ -1,0 +1,42 @@
+@use "inter-ui/default" as inter-default with (
+  $inter-font-display: swap,
+  $inter-font-path: "inter-ui/web-latin",
+  $inter-font-suffix: "-subset"
+);
+
+@use "inter-ui/variable" as inter-variable with (
+  $inter-font-display: swap,
+  $inter-font-path: "inter-ui/variable-latin",
+  $inter-font-suffix: "-subset"
+);
+
+@include inter-variable.normal;
+@include inter-default.weight-400-normal;
+@include inter-default.weight-500-normal;
+@include inter-default.weight-600-normal;
+@include inter-default.weight-700-normal;
+@include inter-default.weight-800-normal;
+@include inter-default.weight-900-normal;
+
+html {
+  font-family: Inter, sans-serif;
+  font-feature-settings: "tnum";
+
+  @supports (font-variation-settings: normal) {
+    font-family: InterVariable, sans-serif;
+  }
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

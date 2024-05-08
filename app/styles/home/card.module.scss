@@ -1,0 +1,64 @@
+.container {
+  z-index: 2;
+
+  display: grid;
+  grid-auto-rows: 8rem;
+  grid-template-columns: repeat(var(--columns, 4), var(--width, 12rem));
+  gap: 1em;
+
+  margin: 1em;
+  margin-right: calc(1em + env(safe-area-inset-right));
+  margin-left: calc(1em + env(safe-area-inset-left));
+
+  @media (width <= 64rem) {
+    --columns: 2;
+  }
+
+  @media (width <= 32rem) or (height <= 32rem) {
+    --width: 8rem;
+
+    grid-auto-rows: 6rem;
+    font-size: 0.75rem;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125em;
+
+  padding: 0.125rem 0.25rem;
+
+  color: var(--fg-1);
+
+  background-color: var(--bg-2);
+  border: 0.25rem solid var(--fg-3);
+  border-radius: 0.5rem;
+
+  &-double {
+    grid-column: span 2;
+  }
+}
+
+.icon {
+  transform: translateY(0.0625em);
+  height: 0.75em;
+}
+
+.title {
+  transform: translateY(-0.25rem);
+
+  display: flex;
+  gap: 0.25em;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 0;
+
+  font-size: 1.125rem;
+  font-weight: 800;
+  font-variant-caps: small-caps;
+  line-height: 1em;
+  color: var(--fg-2);
+  text-transform: lowercase;
+}

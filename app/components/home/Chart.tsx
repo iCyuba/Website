@@ -1,15 +1,24 @@
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useLoaderData } from "@remix-run/react";
-import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
 
+import { cls } from "@/lib/cls";
 import { time, useCurrentTime } from "@/lib/currentTime";
 import type { loader } from "@/routes/_index";
 
 import Card from "@/components/home/Card";
 
-import { columns, container, icon } from "@/styles/home/card.css";
-import { chart, day } from "@/styles/home/chart.css";
+import { container, icon } from "@/styles/home/card.module.scss";
+import * as styles from "@/styles/home/chart.module.scss";
+import { chart, old } from "@/styles/home/chart.module.scss";
+
+const dayStyles = [
+  styles.day,
+  styles.day1,
+  styles.day2,
+  styles.day3,
+  styles.day4,
+];
 
 /** 27 weeks, on mobile only 26 will be shown */
 export const DAYS = 27 * 7;
@@ -32,12 +41,12 @@ function Chart() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <div className={container} style={assignInlineVars({ [columns]: "2" })}>
+    <div className={container} style={{ ["--columns"]: "2" } as object}>
       <Card title={<Title />} double className={chart}>
         {/* Length = All days - days in the future */}
         {Array.from({ length: DAYS - 6 + today }).map((_, i) => (
           <span
-            className={day({ level_: data.chart[i], old_: i < 7 })}
+            className={cls(dayStyles[data.chart[i]], i < 7 && old)}
             key={i}
           />
         ))}

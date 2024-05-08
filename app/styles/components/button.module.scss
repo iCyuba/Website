@@ -1,0 +1,27 @@
+.button {
+  cursor: pointer;
+
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.5em 1em;
+
+  color: var(--fg-1);
+
+  background-color: transparent;
+  border: 0.2em solid currentcolor;
+  border-bottom-width: 0.3em;
+  border-radius: 0.5em;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.25em rgb(0 0 0 / 25%);
+  }
+
+  @media (width <= 32rem) or (height <= 32rem) {
+    gap: 0.25em;
+    padding: 0.25em 0.75em;
+  }
+}

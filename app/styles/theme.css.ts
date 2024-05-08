@@ -1,7 +1,27 @@
 import { createTheme } from "@vanilla-extract/css";
 import { blue, emerald, neutral, rose, sky, slate } from "tailwindcss/colors";
 
-export const [slateTheme, colors] = createTheme({
+export const colors = {
+  bg: {
+    1: "var(--bg-1)",
+    2: "var(--bg-2)",
+  },
+
+  fg: {
+    1: "var(--fg-1)",
+    2: "var(--fg-2)",
+    3: "var(--fg-3)",
+  },
+
+  chart: {
+    1: "var(--chart-1)",
+    2: "var(--chart-2)",
+    3: "var(--chart-3)",
+    4: "var(--chart-4)",
+  },
+} as const;
+
+export const slateTheme = createTheme(colors, {
   bg: {
     1: slate[100],
     2: `color-mix(in srgb, ${slate[300]}, ${slate[100]})`,

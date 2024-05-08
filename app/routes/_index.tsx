@@ -7,7 +7,7 @@ import { redis } from "@/lib/redis.server";
 import About from "@/components/home/About/Container";
 import Chart from "@/components/home/Chart";
 
-import { divider, home, title } from "@/styles/home/page.css";
+import { divider, home, title } from "@/styles/home/page.module.scss";
 
 export const meta: MetaFunction = () => {
   return [

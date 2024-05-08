@@ -5,11 +5,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import "inter-ui/inter-latin.css";
-import "inter-ui/inter-variable-latin.css";
 import fontUrl from "inter-ui/variable-latin/InterVariable-subset.woff2?url";
 
-import "@/styles/global.css";
+import "@/styles/global.scss";
 import { slateTheme } from "@/styles/theme.css";
 
 export default function App() {

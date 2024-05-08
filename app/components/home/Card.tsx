@@ -1,6 +1,12 @@
 import type { ReactNode } from "react";
 
-import { card, title as titleClass } from "@/styles/home/card.css";
+import { cls } from "@/lib/cls";
+
+import {
+  card,
+  cardDouble,
+  title as titleClass,
+} from "@/styles/home/card.module.scss";
 
 interface CardProps {
   title: ReactNode;
@@ -11,7 +17,7 @@ interface CardProps {
 
 function Card({ title, children, double, className }: CardProps) {
   return (
-    <div className={card({ double_: double })}>
+    <div className={cls(card, double && cardDouble)}>
       <h2 className={titleClass}>{title}</h2>
 
       <div className={className}>{children}</div>

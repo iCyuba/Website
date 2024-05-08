@@ -8,7 +8,7 @@ import {
   divider,
   label,
   time as timeClass,
-} from "@/styles/home/time.css";
+} from "@/styles/home/time.module.scss";
 
 function Time() {
   const { time, cycle, zone, date } = usePragueTime();

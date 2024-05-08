@@ -16,7 +16,7 @@ import {
   media,
   name as nameClass,
   title as titleClass,
-} from "@/styles/home/socials.css";
+} from "@/styles/home/socials.module.scss";
 
 function Socials() {
   return (

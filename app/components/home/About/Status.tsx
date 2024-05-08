@@ -9,8 +9,8 @@ import type { loader } from "@/routes/_index";
 
 import Card from "@/components/home/Card";
 
-import { button } from "@/styles/components/button.css";
-import { icon } from "@/styles/home/card.css";
+import { button } from "@/styles/components/button.module.scss";
+import { icon } from "@/styles/home/card.module.scss";
 import {
   container,
   fail,
@@ -18,7 +18,7 @@ import {
   lastOnlineLabel,
   lastOnlineValue,
   status as statusClass,
-} from "@/styles/home/status.css";
+} from "@/styles/home/status.module.scss";
 
 function Title() {
   return (
