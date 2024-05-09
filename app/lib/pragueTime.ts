@@ -1,4 +1,4 @@
-import { time as currentTime, useCurrentTime } from "@/lib/currentTime";
+import { time, useCurrentTime } from "@/lib/currentTime";
 
 const intl = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
@@ -22,8 +22,8 @@ export interface FormattedDate {
 
 let snapshot: FormattedDate | undefined;
 
-function getPragueTimeSnapshot(): FormattedDate {
-  const parts = intl.formatToParts(currentTime);
+function getPragueTimeSnapshot(t = time): FormattedDate {
+  const parts = intl.formatToParts(t);
   const date = parts
     .splice(0, 5)
     .map(part => part.value)
@@ -46,6 +46,8 @@ function getPragueTimeSnapshot(): FormattedDate {
   return snapshot;
 }
 
+const getServerPragueTimeSnapshot = () => getPragueTimeSnapshot(new Date());
+
 /**
  * Get the current time and date in Prague.
  *
@@ -53,5 +55,5 @@ function getPragueTimeSnapshot(): FormattedDate {
  * @returns The current time and date in Prague in the FormattedDate format.
  */
 export function usePragueTime(): FormattedDate {
-  return useCurrentTime(getPragueTimeSnapshot);
+  return useCurrentTime(getPragueTimeSnapshot, getServerPragueTimeSnapshot);
 }

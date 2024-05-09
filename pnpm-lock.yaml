@@ -50,9 +50,6 @@ dependencies:
   react-dom:
     specifier: ^18.3.1
     version: 18.3.1(react@18.3.1)
-  react-fontawesome-svg-icon:
-    specifier: ^1.1.2
-    version: 1.1.2(react@18.3.1)
   tailwindcss:
     specifier: ^3.4.3
     version: 3.4.3
@@ -6141,14 +6138,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
-
-  /react-fontawesome-svg-icon@1.1.2(react@18.3.1):
-    resolution: {integrity: sha512-5lBr2wGxvsAuHTm1E8VXlBMQq8QqyiU5I68rFQPYgAEbhfhOo46T33ci3qGJNq7f2EJgJDyJlO0tduDLERJPqA==}
-    peerDependencies:
-      react: '>=17.0.2'
-    dependencies:
-      react: 18.3.1
-    dev: false
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}

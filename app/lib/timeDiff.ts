@@ -25,18 +25,25 @@ const intl = new Intl.RelativeTimeFormat("en-GB", {
  * @returns The formatted time difference.
  */
 export function useTimeDifference(date?: Date | null) {
-  const getSnapshot = useCallback(() => {
-    if (!date) return;
+  const getSnapshot = useCallback(
+    (t = time) => {
+      if (!date) return;
 
-    const diff = date.getTime() - time.getTime();
-    for (const [name, ms] of units) {
-      if (Math.abs(diff) >= ms) {
-        return intl.format(Math.ceil(diff / ms), name);
+      const diff = date.getTime() - t.getTime();
+      for (const [name, ms] of units) {
+        if (Math.abs(diff) >= ms) {
+          return intl.format(Math.ceil(diff / ms), name);
+        }
       }
-    }
 
-    return intl.format(0, "second");
-  }, [date]);
+      return intl.format(0, "second");
+    },
 
-  return useCurrentTime(getSnapshot);
+    [date]
+  );
+
+  return useCurrentTime(
+    getSnapshot,
+    useCallback(() => getSnapshot(new Date()), [getSnapshot])
+  );
 }

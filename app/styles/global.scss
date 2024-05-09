@@ -1,13 +1,15 @@
 @use "inter-ui/default" as inter-default with (
   $inter-font-display: swap,
   $inter-font-path: "inter-ui/web-latin",
-  $inter-font-suffix: "-subset"
+  $inter-font-suffix: "-subset",
+  $inter-font-path-suffix: ""
 );
 
 @use "inter-ui/variable" as inter-variable with (
   $inter-font-display: swap,
   $inter-font-path: "inter-ui/variable-latin",
-  $inter-font-suffix: "-subset"
+  $inter-font-suffix: "-subset",
+  $inter-font-path-suffix: ""
 );
 
 @include inter-variable.normal;

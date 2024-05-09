@@ -5,9 +5,9 @@ import {
   faSteam,
   IconDefinition,
 } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
 
 import Card from "@/components/home/Card";
+import Icon from "@/components/Icon";
 
 import {
   container,
@@ -40,12 +40,7 @@ interface MediaProps {
 function Media({ icon, title, name }: MediaProps) {
   return (
     <a className={media} href={`https://icy.cx/${title.toLowerCase()}`}>
-      <FontAwesomeSvgIcon
-        className={iconClass}
-        icon={icon}
-        width={40}
-        height={40}
-      />
+      <Icon className={iconClass} fa={icon} width={40} height={40} />
 
       <div className={label}>
         <span className={titleClass}>{title}</span>

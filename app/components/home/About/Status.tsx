@@ -1,13 +1,13 @@
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { useLoaderData } from "@remix-run/react";
 import { Status as StatusEnum, toDisplayStatus } from "discord-status";
-import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
 
 import { useStatus } from "@/lib/status";
 import { useTimeDifference } from "@/lib/timeDiff";
 import type { loader } from "@/routes/_index";
 
 import Card from "@/components/home/Card";
+import Icon from "@/components/Icon";
 
 import { button } from "@/styles/components/button.module.scss";
 import { icon } from "@/styles/home/card.module.scss";
@@ -24,7 +24,7 @@ function Title() {
   return (
     <>
       status
-      <FontAwesomeSvgIcon className={icon} icon={faDiscord} width="1rem" />
+      <Icon className={icon} fa={faDiscord} width="1rem" />
     </>
   );
 }

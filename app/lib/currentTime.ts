@@ -6,17 +6,17 @@ import { useSyncExternalStore } from "react";
  * If you want to use a custom getSnapshot function, you can pass it as the first argument.
  * To get the current time in your custom getSnapshot function, you can use the exported `time` variable.
  * @param getSnapshot Function for getting current time. Defaults to `() => time`.
- * @param getServerSnapshot The function to get the current time on the server. Defaults to the same as `getSnapshot`.
+ * @param getServerSnapshot The function to get the current time on the server. Defaults to `() => new Date()`.
  * @returns The current time.
  */
 export function useCurrentTime<T>(
-  getSnapshot?: () => T,
-  getServerSnapshot?: () => T
+  getSnapshot: () => T,
+  getServerSnapshot: () => T
 ): T;
 export function useCurrentTime(): Date;
 export function useCurrentTime(
-  getSnapshot: () => Date = () => time,
-  getServerSnapshot: () => Date = getSnapshot
+  getSnapshot = () => time,
+  getServerSnapshot = () => new Date()
 ): Date {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
